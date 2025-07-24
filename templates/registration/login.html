@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Calculadora Kogui</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+    <body>
+      <div class="login-container">
+      <h2>Login</h2>
+      <form method="post">
+          {% csrf_token %} {{ form.as_p }}
+          <button type="submit">Entrar</button>
+      </form>
+      {% if form.errors %}
+      <ul class="errorlist">
+          {% for field in form %}
+              {% if field.errors %}
+                  {% for error in field.errors %}
+                      <li>{{ error }}</li>
+                  {% endfor %}
+              {% endif %}
+          {% endfor %}
+          {% if form.non_field_errors %}
+              {% for error in form.non_field_errors %}
+                  <li>{{ error }}</li>
+              {% endfor %}
+          {% endif %}
+      </ul>
+      {% endif %}
+      <div class="register-link">
+          Não tem uma conta? <a href="/register/">Cadastre-se aqui</a>
+      </div>
+      </div>
+    </body>
+</html>
