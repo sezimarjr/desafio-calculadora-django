@@ -104,11 +104,11 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-LOGIN_REDIRECT_URL = '/calculadora/'  # Vamos criar esta URL depois
+LOGIN_REDIRECT_URL = 'calculadora'  # Vamos criar esta URL depois
 
-LOGOUT_REDIRECT_URL = '/login/'  # Ou para a página inicial, se preferir
+LOGOUT_REDIRECT_URL = 'login'  # Ou para a página inicial, se preferir
 
-LOGIN_URL = '/login/'
+LOGIN_URL = 'login'
 
 
 # Internationalization

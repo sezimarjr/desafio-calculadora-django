@@ -14,8 +14,13 @@
             <h1>Calculadora Avançada</h1>
             <p>Calculadora com histórico de operações</p>
             <div class="user-info">
-                Olá, {{ user.username }}! 
-                <a href="{% url 'logout' %}" class="logout-btn">Sair</a>
+                Olá, {{ user.username }}!
+                <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-btn">
+                        Sair
+                    </button>
+                </form>
             </div>
         </header>
 
