@@ -116,11 +116,10 @@ LOGIN_URL = '/login/'
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_TZ = True
+TIME_ZONE = 'America/Sao_Paulo'  # Fuso horário de Brasília
+USE_I18N = True                # Mantém ativa a internacionalização
+USE_L10N = True                # Ativa formatação local
+USE_TZ = True                  # Mantém ativo o suporte a timezones
 
 
 # Static files (CSS, JavaScript, Images)

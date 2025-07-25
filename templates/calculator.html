@@ -1,0 +1,103 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Avançada - Kogui</title>
+    <link rel="stylesheet" href="{% static 'css/calculator.css' %}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Calculadora Avançada</h1>
+            <p>Calculadora com histórico de operações</p>
+            <div class="user-info">
+                Olá, {{ user.username }}! 
+                <a href="{% url 'logout' %}" class="logout-btn">Sair</a>
+            </div>
+        </header>
+
+        <div class="main-content">
+            <!-- Calculadora -->
+            <div class="calculator-section">
+                <div class="calculator">
+                    <div class="display">
+                        <div class="display-text" id="display">0</div>
+                    </div>
+                    
+                                        <div class="buttons">
+                        <!-- Primeira linha -->
+                        <button class="btn btn-clear" onclick="clearDisplay()">C</button>
+                        <button class="btn btn-operator" onclick="appendToDisplay("±")">±</button> <!-- Botão de +/- -->
+                        <button class="btn btn-operator" onclick="appendToDisplay("%")">%</button> <!-- Botão de % -->
+                        <button class="btn btn-operator" onclick="setOperator("/")">÷</button>
+                        
+                        <!-- Segunda linha -->
+                        <button class="btn btn-number" onclick="appendToDisplay("7")">7</button>
+                        <button class="btn btn-number" onclick="appendToDisplay("8")">8</button>
+                        <button class="btn btn-number" onclick="appendToDisplay("9")">9</button>
+                        <button class="btn btn-operator" onclick="setOperator("*")">×</button>
+                        
+                        <!-- Terceira linha -->
+                        <button class="btn btn-number" onclick="appendToDisplay("4")">4</button>
+                        <button class="btn btn-number" onclick="appendToDisplay("5")">5</button>
+                        <button class="btn btn-number" onclick="appendToDisplay("6")">6</button>
+                        <button class="btn btn-operator" onclick="setOperator("-")">-</button>
+                        
+                        <!-- Quarta linha -->
+                        <button class="btn btn-number" onclick="appendToDisplay("1")">1</button>
+                        <button class="btn btn-number" onclick="appendToDisplay("2")">2</button>
+                        <button class="btn btn-number" onclick="appendToDisplay("3")">3</button>
+                        <button class="btn btn-operator" onclick="setOperator("+")">+</button>
+                        
+                        <!-- Quinta linha -->
+                        <button class="btn btn-number btn-zero" onclick="appendToDisplay("0")">0</button>
+                        <button class="btn btn-number" onclick="appendToDisplay(".")">.</button>
+                        <button class="btn btn-equals" onclick="calculate()">=</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Histórico -->
+            <div class="history-section">
+                <div class="history-header">
+                    <h2>🕒 Histórico</h2>
+                    <button class="clear-history-btn" onclick="clearHistory()">🗑️</button>
+                </div>
+                
+                <div class="history-list" id="history-list">
+                    {% if operation_history %}
+                        {% for operation in operation_history %}
+                            <div class="history-item">
+                                <div class="operation">
+                                    {{ operation.number1 }} 
+                                    {% if operation.operation_type == 'soma' %}+{% endif %}
+                                    {% if operation.operation_type == 'subtracao' %}-{% endif %}
+                                    {% if operation.operation_type == 'multiplicacao' %}×{% endif %}
+                                    {% if operation.operation_type == 'divisao' %}÷{% endif %}
+                                    {{ operation.number2 }}
+                                </div>
+                                <div class="result">= {{ operation.result }}</div>
+                                <div class="time">{{ operation.operation_date|date:"H:i" }}</div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="no-history">Nenhuma operação realizada ainda.</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="{% static 'js/calculator.js' %}"></script>
+    
+    <!-- CSRF Token para requisições AJAX -->
+    <script>
+        const csrfToken = '{{ csrf_token }}';
+    </script>
+</body>
+</html>
