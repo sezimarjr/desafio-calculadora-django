@@ -79,6 +79,8 @@ body {
   background-color: rgba(255, 255, 255, 0.2);
   border-radius: 5px;
   transition: background-color 0.3s ease;
+  border: none;
+  cursor: pointer;
 }
 
 .logout-btn:hover {
