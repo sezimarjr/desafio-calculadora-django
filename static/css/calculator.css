@@ -260,7 +260,7 @@ body {
 .history-list {
   flex-grow: 1;
   display: flex;
-  flex-direction: column-reverse; /* Para mostrar os mais recentes em cima */
+  flex-direction: column; /* Para mostrar os mais recentes em cima */
 }
 
 .history-item {

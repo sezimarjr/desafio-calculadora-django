@@ -1,20 +1,15 @@
-// portal/static/js/calculator.js
-
 const display = document.getElementById("display");
 const historyList = document.getElementById("history-list");
 let currentInput = "0";
 let operator = null;
 let previousInput = null;
-let waitingForNewInput = false; // Flag para indicar que um novo número deve começar
+let waitingForNewInput = false;
 
 // Função para adicionar números e o ponto decimal ao display
 function appendToDisplay(value) {
   if (waitingForNewInput) {
-    // Se estamos esperando novo input, comece uma nova entrada
-    currentInput = value;
+    currentInput = value; // Inicia um novo número
     waitingForNewInput = false;
-    // Atualiza o display com o número anterior, operador e novo número
-    display.textContent = `${previousInput} ${operator} ${currentInput}`;
   } else {
     if (currentInput === "0" && value !== ".") {
       currentInput = value;
@@ -23,37 +18,27 @@ function appendToDisplay(value) {
     } else {
       currentInput += value;
     }
-    // Atualiza o display com a expressão completa
-    if (operator) {
-      display.textContent = `${previousInput} ${operator} ${currentInput}`;
-    } else {
-      display.textContent = currentInput;
-    }
+  }
+
+  // Atualiza o display para mostrar a expressão completa ou apenas o número atual
+  if (operator && previousInput !== null) {
+    display.textContent = `${previousInput} ${operator} ${currentInput}`;
+  } else {
+    display.textContent = currentInput;
   }
 }
 
+// Função para definir o operador
 function setOperator(op) {
   if (previousInput !== null && operator !== null && !waitingForNewInput) {
-    calculate(); // Calcula o resultado da operação anterior antes de aplicar a nova
+    calculate();
   }
+  previousInput = currentInput; // O número atual se torna o primeiro operando
+  operator = op; // Define o operador
+  waitingForNewInput = true; // Próxima entrada numérica iniciará um novo currentInput
 
-  // Se não há input atual (primeira operação), usa o input atual como previous
-  if (previousInput === null) {
-    previousInput = currentInput || "0";
-  }
-
-  operator = op;
-  waitingForNewInput = true;
-
-  // Atualiza o display para mostrar a expressão até agora
+  // Atualiza o display para mostrar o primeiro operando e o operador
   display.textContent = `${previousInput} ${operator}`;
-
-  // Se já tínhamos uma operação em andamento, mostra o novo operador
-  if (!waitingForNewInput && currentInput) {
-    display.textContent = `${currentInput} ${operator}`;
-    previousInput = currentInput;
-    currentInput = "";
-  }
 }
 
 // Função para limpar o display e resetar a calculadora
@@ -113,11 +98,11 @@ async function calculate() {
       break;
     case "%": // Lógica para porcentagem (ex: 50 % 100 = 50) ou (100 * 10% = 10)
       result = (num1 * num2) / 100; // Ex: 100 * 10% = 10
-      operationTypeForBackend = "porcentagem"; // Pode precisar de um novo tipo no backend
+      operationTypeForBackend = "porcentagem";
       break;
     case "±": // Lógica para inverter sinal
       result = -num2; // Aplica ao segundo número ou ao resultado atual
-      operationTypeForBackend = "inverter_sinal"; // Pode precisar de um novo tipo no backend
+      operationTypeForBackend = "inverter_sinal";
       break;
     default:
       display.textContent = "Erro: Operação inválida";
@@ -135,9 +120,6 @@ async function calculate() {
   waitingForNewInput = true; // Pronto para nova operação ou continuar com o resultado
 
   // Enviar a operação para o backend via AJAX
-  // Nota: Para % e ±, o backend pode precisar de ajustes no modelo Operacao
-  // Por enquanto, vamos enviar como os tipos existentes ou adicionar novos no modelo se necessário.
-  // Apenas salve se for uma operação de cálculo válida (soma, subtracao, multiplicacao, divisao)
   if (
     ["soma", "subtracao", "multiplicacao", "divisao"].includes(
       operationTypeForBackend
@@ -266,7 +248,3 @@ async function clearHistory() {
     }
   }
 }
-
-document;
-// .querySelector(".clear-history-btn")
-// .addEventListener("click", clearHistory);

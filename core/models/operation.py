@@ -36,7 +36,6 @@ class Operation(models.Model):
     )
 
     # Campo para registrar a data e hora da operação
-    # auto_now_add=True preenche automaticamente a data e hora na criação
     operation_date = models.DateTimeField(
         auto_now_add=True, verbose_name='Data da Operação')
 
