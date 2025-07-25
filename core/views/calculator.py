@@ -48,7 +48,8 @@ def calculator(request):
     # Recupera o histórico de operações do usuário logado
     # ordered by -data_operacao (mais recente primeiro) já está no Meta do model
     operation_history = Operation.objects.filter(
-        default_user=request.user).order_by('-operation_date')[:10]
+        default_user=request.user
+    ).order_by('-operation_date')
 
     context = {
         'result': result,
