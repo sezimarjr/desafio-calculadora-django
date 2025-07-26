@@ -9,6 +9,7 @@ Portal web com **calculadora interativa**, **histórico de operações** e **aut
 ---
 
 ## 📑 Sumário
+
 - [🚀 Tecnologias Utilizadas](#-tecnologias-utilizadas)
 - [✨ Funcionalidades](#-funcionalidades)
 - [📦 Estrutura do Projeto](#-estrutura-do-projeto)
@@ -19,6 +20,7 @@ Portal web com **calculadora interativa**, **histórico de operações** e **aut
 ---
 
 ## 🚀 Tecnologias Utilizadas
+
 - **Python 3.x**
 - **Django 5.x** – Framework web de alto nível
 - **SQLite** – Banco de dados padrão
@@ -28,12 +30,13 @@ Portal web com **calculadora interativa**, **histórico de operações** e **aut
 ---
 
 ## ✨ Funcionalidades
+
 ✅ **Autenticação de Usuários** (login e cadastro)  
 ✅ **Calculadora Avançada** – Operações básicas (soma, subtração, multiplicação, divisão)  
 ✅ **Histórico de Operações** – Armazena cálculos por usuário  
 ✅ **Limpeza de Histórico**  
 ✅ **Design Responsivo** (desktop e mobile)  
-✅ **Testes Automatizados** (models e views)  
+✅ **Testes Automatizados** (models e views)
 
 ---
 
@@ -62,6 +65,75 @@ Portal web com **calculadora interativa**, **histórico de operações** e **aut
 └── README.md
 ```
 
+## ⚙️ Como Rodar o Projeto
 
+### **1. Clone o repositório**
 
+```bash
+git clone https://github.com/seu-usuario/desafio-calculadora-kogui.git
+cd desafio-calculadora-kogui
+```
 
+### **2. Crie e ative um ambiente virtual**
+
+```bash
+python -m venv venv
+# Ativar no Linux/Mac
+source venv/bin/activate
+# Ativar no Windows
+venv\Scripts\activate
+```
+
+### **3. Instale as dependências**
+
+```bash
+pip install -r requirements.txt
+```
+
+### **4. Execute as migrações**
+
+```bash
+python manage.py migrate
+```
+
+### **5. Crie um superusuário (opcional, para acessar o admin)**
+
+```bash
+python manage.py createsuperuser
+```
+
+### **6. Inicie o servidor**
+
+```bash
+python manage.py runserver
+```
+
+Acesse:  
+http://127.0.0.1:8000/
+
+---
+
+## 🔗 Endpoints Importantes
+
+| URL          | Descrição             |
+| ------------ | --------------------- |
+| `/`          | Página da calculadora |
+| `/login/`    | Login de usuário      |
+| `/logout/`   | Logout de usuário     |
+| `/register/` | Cadastro de usuário   |
+
+---
+
+## 🧪 Rodando os Testes
+
+```bash
+python manage.py test
+```
+
+Os testes cobrem **models** e **views** para garantir a integridade da aplicação.
+
+---
+
+## 📜 Licença
+
+Este projeto está licenciado sob a **MIT License**. Veja o arquivo LICENSE para mais detalhes.
